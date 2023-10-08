@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+  /* Estilize o botão */
+  .rounded-button {
+    background-color: #333; /* Cor de fundo cinza escuro */
+    border: none; /* Sem borda */
+    border-radius: 10px; /* Cantos arredondados */
+    padding: 10px 20px; /* Espaçamento interno */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    color: white; /* Cor do texto */
+  }
+</style>
 </head>
 <body>
 
-<!-- Botão simples -->
-<button id="copiarBotao">Copiar Texto</button>
+<!-- Botão com a classe "rounded-button" -->
+<button class="rounded-button" onclick="copiarTexto()">Copiar Texto</button>
+
+<!-- Texto que será copiado -->
+<input type="text" value="Texto que será copiado" id="textoParaCopiar" style="display: none;">
 
 <script>
-document.getElementById("copiarBotao").addEventListener("click", function() {
-  // Texto que será copiado
-  var textoParaCopiar = "Texto que será copiado";
+function copiarTexto() {
+  // Selecionar o elemento de texto
+  var texto = document.getElementById("textoParaCopiar");
 
-  // Cria um elemento de área de texto temporário
-  var tempInput = document.createElement("textarea");
-  tempInput.style.position = "absolute";
-  tempInput.style.left = "-9999px";
-  tempInput.value = textoParaCopiar;
-  document.body.appendChild(tempInput);
+  // Selecionar o texto dentro do elemento
+  texto.select();
+  texto.setSelectionRange(0, 99999); /* Para dispositivos móveis */
 
-  // Seleciona o texto dentro do elemento de área de texto
-  tempInput.select();
-  tempInput.setSelectionRange(0, 99999);
-
-  // Copia o texto para a área de transferência
+  // Copiar o texto para a área de transferência
   document.execCommand("copy");
 
-  // Remove o elemento de área de texto temporário
-  document.body.removeChild(tempInput);
-
-  // Exibe uma mensagem de sucesso (você pode personalizar esta mensagem)
-  alert("Texto copiado: " + textoParaCopiar);
-});
+  // Exibir uma mensagem de sucesso (você pode personalizar esta mensagem)
+  alert("Texto copiado: " + texto.value);
+}
 </script>
 
 </body>
